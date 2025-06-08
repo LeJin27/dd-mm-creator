@@ -17,7 +17,7 @@ export class AuthService {
 
   public async login(credentials: Credentials): Promise<Authenticated | undefined> {
     console.log(credentials)
-    return { name: "test", email: "cat@books.com", accessToken: generateToken("uuid") };
+    return { name: "cat", email: "cat@books.com", accessToken: generateToken("uuid") };
   }
 
 }
