@@ -1,0 +1,118 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"midt": {
+				"type": "string",
+				"minLength": 180,
+				"maxLength": 240,
+				"pattern": "^[A-Za-z0-9_-]{2,}(?:\\.[A-Za-z0-9_-]{2,}){2}$"
+			},
+			"Authenticated": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"accessToken": {
+						"$ref": "#/components/schemas/midt"
+					}
+				},
+				"required": [
+					"name",
+					"accessToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"email": {
+				"type": "string",
+				"description": "Email pattern (simplified RFC 5322)",
+				"pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+			},
+			"Credentials": {
+				"properties": {
+					"email": {
+						"$ref": "#/components/schemas/email"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "http",
+				"scheme": "bearer",
+				"scopes": {
+					"driver": "driver",
+					"admin": "admin"
+				}
+			}
+		}
+	},
+	"info": {
+		"title": "authservice",
+		"version": "1.0.0",
+		"description": "This is auth service used to login",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Jin"
+		}
+	},
+	"paths": {
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Authenticated"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorised"
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Credentials"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api/v0"
+		}
+	]
+}
