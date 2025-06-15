@@ -1,23 +1,74 @@
-import { Authenticated, Credentials } from '.';
-import { midt, UUID} from '../types'
-import * as jwt from "jsonwebtoken"
+import { Authenticated, Credentials, User } from ".";
+import { pool } from "../db";
+import { midt, SessionUser, UUID } from "../types";
+import * as jwt from "jsonwebtoken";
+import { selectByCredentials, selectUserById } from "./queries";
 
+const envSecret = process.env.MASTER_SECRET;
+if (!envSecret) {
+  throw new Error("JWT_SECRET is not set");
+}
+const JWT_SECRET = envSecret
 
-const JWT_SECRET = process.env.MASTER_SECRET
 const JWT_OPTIONS: jwt.SignOptions = {
   expiresIn: "30m",
-  algorithm: "HS256"
+  algorithm: "HS256",
 };
-export function generateToken(userId: UUID, text = ''): midt {
+export function generateToken(userId: UUID, text = ""): midt {
   return jwt.sign({ id: userId }, JWT_SECRET + text, JWT_OPTIONS);
 }
 
-
 export class AuthService {
+  public async check(
+    token: string,
+    scopes?: string[]
+  ): Promise<SessionUser> {
+    try {
+      const decodedToken = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
+      const decodedTokenId = decodedToken.id;
 
-  public async login(credentials: Credentials): Promise<Authenticated | undefined> {
-    console.log(credentials)
-    return { name: "cat", email: "cat@books.com", accessToken: generateToken("uuid") };
+      const query = {
+        text: selectUserById,
+        values: [decodedTokenId],
+      };
+      const { rows } = await pool.query(query);
+      if (rows.length === 1) {
+        const decodedUser = { id: rows[0].id, roles: rows[0].roles };
+        if (scopes) {
+          for (const scope of scopes) {
+            if (!decodedUser.roles || !decodedUser.roles.includes(scope)) {
+              throw { status: 401, message: "Unauthorized: Missing required role" };
+            }
+          }
+        }
+        return decodedUser
+      } else {
+        throw { status: 401, message: "Unauthorized: Nonexistant user" };
+      }
+    } catch {
+      throw { status: 401, message: "Unauthorized: Invalid JWT" }
+    }
   }
 
+  public async login(
+    credentials: Credentials
+  ): Promise<Authenticated | undefined> {
+    const query = {
+      text: selectByCredentials,
+      values: [credentials.email, credentials.password],
+    };
+    const { rows } = await pool.query(query);
+
+    try {
+      if (rows.length === 1) {
+        const user = rows[0] as User;
+        const accessToken = generateToken(user.id);
+        return { name: user.name, accessToken: accessToken, email: user.email };
+      } else {
+        return undefined;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
