@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ThemeWrapper from "../components/ThemeWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <ThemeWrapper>{children}</ThemeWrapper>
       </body>
     </html>
   );
