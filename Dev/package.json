@@ -1,4 +1,12 @@
 {
+    "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "concurrently": "^9.1.2",
+    "jose": "^4.14.6",
+    "next": "15.3.1",
+    "typescript": "^5.8.3"
+  },
   "scripts": {
     "install-microservices": "cd ../Microservices && npm run installs",
     "install": "npm run install-microservices && npm run install-apps",

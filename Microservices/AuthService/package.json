@@ -1,7 +1,7 @@
 {
   "name": "authservice",
   "version": "1.0.0",
-  "description": "This is auth service used to login",
+  "description": "This is auth service used to login and retrieve user related info",
   "author": "Jin",
   "license": "ISC",
   "dependencies": {
