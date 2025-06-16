@@ -52,6 +52,16 @@ export class AuthController extends Controller {
     }
   }
 
+  @Get('validJwt')
+  @Security("jwt")
+  @Response('401', 'Unauthorised')
+  public async validJwt(
+    @Request() request: Express.Request,
+  ): Promise<SessionUser | undefined> {
+    const requestor = request.user as SessionUser;
+    return requestor;
+  }
+
 
 
 }

@@ -67,6 +67,21 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"SessionUser": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"roles": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -83,7 +98,7 @@
 	"info": {
 		"title": "authservice",
 		"version": "1.0.0",
-		"description": "This is auth service used to login",
+		"description": "This is auth service used to login and retrieve user related info",
 		"license": {
 			"name": "ISC"
 		},
@@ -134,6 +149,32 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorised"
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/auth/validJwt": {
+			"get": {
+				"operationId": "ValidJwt",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SessionUser"
 								}
 							}
 						}

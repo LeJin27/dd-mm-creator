@@ -89,3 +89,13 @@ test('200 Authorized: User can login and retrieve email and name', async () => {
   expect(res.body.name).toEqual('Molly Member')
 
 });
+
+test('200 Authorized: User has valid jwt', async () => {
+  const accessToken = await getLoginAccessToken()
+
+  await supertest(server)
+    .get('/api/v0/auth/validJwt')
+    .set('Authorization', 'Bearer ' + accessToken)
+    .expect(200)
+
+});
