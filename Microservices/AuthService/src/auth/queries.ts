@@ -14,3 +14,10 @@ export const selectUserById = `
   WHERE id = $1
   AND (member.data->>'suspended' IS NULL OR member.data->>'suspended' != 'true');
 `
+
+export const selectUserInfoById = `
+  SELECT id, data->>'email' AS email, data->>'name' AS name
+  FROM member
+  WHERE id = $1
+  AND (member.data->>'suspended' IS NULL OR member.data->>'suspended' != 'true');
+`

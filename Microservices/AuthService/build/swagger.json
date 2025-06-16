@@ -53,10 +53,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UUID": {
-				"type": "string",
-				"pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-			},
 			"User": {
 				"properties": {
 					"name": {
@@ -64,14 +60,10 @@
 					},
 					"email": {
 						"type": "string"
-					},
-					"id": {
-						"$ref": "#/components/schemas/UUID"
 					}
 				},
 				"required": [
-					"name",
-					"id"
+					"name"
 				],
 				"type": "object",
 				"additionalProperties": false

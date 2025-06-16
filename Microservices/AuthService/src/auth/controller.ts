@@ -6,9 +6,11 @@ import {
   Response,
   Route,
   Get,
+  Request,
 } from 'tsoa'
 import { Authenticated, Credentials, User } from '.'
 import { AuthService } from './service'
+import { SessionUser } from '../types';
 
 
 @Route('auth')
@@ -38,10 +40,13 @@ export class AuthController extends Controller {
   @Security("jwt")
   @Response('401', 'Unauthorised')
   public async getUserInfo(
+    @Request() request: Express.Request,
   ): Promise<User | undefined> {
+    const requestor = request.user as SessionUser;
+    const requestorId = requestor.id;
     try {
-      return undefined
-
+      const userInfo = await new AuthService().getUserInfo(requestorId)
+      return userInfo
     } catch {
       return undefined;
     }

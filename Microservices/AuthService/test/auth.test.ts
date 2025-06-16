@@ -2,7 +2,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { test, beforeAll, afterAll, beforeEach, expect, vi } from 'vitest'
+import { test, beforeAll, afterAll, beforeEach, expect} from 'vitest'
 import supertest from 'supertest'
 import * as http from 'http'
 import app from '../src/app'
@@ -32,6 +32,14 @@ const validCredentials = {
   email: "molly@books.com",
   password: "mollymember",
 }
+async function getLoginAccessToken() {
+  const res = await supertest(server)
+    .post('/api/v0/auth/login')
+    .send(validCredentials)
+    .expect(200);
+
+  return res.body.accessToken;
+}
 
 test('Serves API Docs', async () => {
   await supertest(server)
@@ -47,7 +55,6 @@ test('200 Logged in: User can login with valid credentials', async () => {
     .expect(200)
 
   expect(res.body).toHaveProperty('name', 'Molly Member');
-  console.log(res.body)
 });
 
 test('401 Unauthorized: No Token', async () => {
@@ -70,21 +77,15 @@ test('401 Unauthorized: jwt malformed', async () => {
 
 });
 
-test('200 Authorized: User can login and retrieve their info', async () => {
-  let accessToken;
-  await supertest(server)
-    .post('/api/v0/auth/login')
-    .send(validCredentials)
-    .then((res) => {
-      accessToken = res.body.accessToken
-  })
+test('200 Authorized: User can login and retrieve email and name', async () => {
+  const accessToken = await getLoginAccessToken()
 
-  console.log(accessToken)
-
-  await supertest(server)
+  const res = await supertest(server)
     .get('/api/v0/auth/userInfo')
     .set('Authorization', 'Bearer ' + accessToken)
     .expect(200)
   
+  expect(res.body.email).toEqual('molly@books.com')
+  expect(res.body.name).toEqual('Molly Member')
 
 });

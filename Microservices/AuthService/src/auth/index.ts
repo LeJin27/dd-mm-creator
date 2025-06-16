@@ -1,4 +1,4 @@
-import { email, midt, UUID } from "../types"
+import { email, midt} from "../types"
 
 export interface Credentials {
   email: email,
@@ -14,5 +14,4 @@ export interface Authenticated {
 export interface User {
   name: string,
   email?: string,
-  id: UUID
 }
