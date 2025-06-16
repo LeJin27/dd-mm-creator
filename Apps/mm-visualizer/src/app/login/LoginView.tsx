@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import LoginBox from "./LoginBox";
 
 export default function LoginView() {
@@ -7,6 +7,8 @@ export default function LoginView() {
       container
       sx={{
         justifyContent: "center",
+        height: "100vh",
+        mt: 10
       }}
     >
       <Grid size={4}>

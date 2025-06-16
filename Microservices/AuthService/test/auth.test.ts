@@ -55,6 +55,7 @@ test('200 Logged in: User can login with valid credentials', async () => {
     .expect(200)
 
   expect(res.body).toHaveProperty('name', 'Molly Member');
+  expect(res.body).toHaveProperty('email', 'molly@books.com');
 });
 
 test('401 Unauthorized: No Token', async () => {
