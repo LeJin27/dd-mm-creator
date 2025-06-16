@@ -24,6 +24,7 @@ export class AuthService {
     scopes?: string[]
   ): Promise<SessionUser> {
     try {
+
       const decodedToken = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
       const decodedTokenId = decodedToken.id;
 
@@ -45,8 +46,9 @@ export class AuthService {
       } else {
         throw { status: 401, message: "Unauthorized: Nonexistant user" };
       }
-    } catch {
-      throw { status: 401, message: "Unauthorized: Invalid JWT" }
+    } catch (error) {
+      console.log(error)
+      throw { status: 401, message: error }
     }
   }
 

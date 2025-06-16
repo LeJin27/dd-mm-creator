@@ -1,6 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-CREATE DATABASE account;
+CREATE DATABASE member;
 
-\connect account
+\connect member
 CREATE EXTENSION IF NOT EXISTS pgcrypto;

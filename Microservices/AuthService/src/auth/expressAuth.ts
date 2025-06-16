@@ -9,7 +9,7 @@ export function expressAuthentication(
 ): Promise<SessionUser> {
   const token = request.headers.authorization?.split(' ')[1];
   if (!token) {
-    throw { status: 401, message: "Unauthorized: No token" }
+    throw { status: 401, message: "Unauthorized: No Token" }
   }
   return new AuthService().check(token, scopes);
 }

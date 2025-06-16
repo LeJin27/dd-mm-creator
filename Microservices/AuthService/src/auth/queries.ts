@@ -1,7 +1,7 @@
 
 export const selectByCredentials = `
   SELECT id, data->>'email' AS email, data->>'name' AS name
-  FROM account
+  FROM member
   WHERE data->>'email' = $1 AND
   crypt($2, data->>'pwhash') = data->>'pwhash'
   AND (data->>'suspended' IS NULL OR data->>'suspended' != 'true');
