@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 
 import { useState, ChangeEvent } from "react";
-import { loginAction } from "./action";
-import { useRouter } from "next/navigation";
-export default function LoginBox() {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+export default function SignInBox() {
+  const [credentials, setCredentials] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [failedLogin, setFailedLogin] = useState(false);
-
-  const router = useRouter();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: textFieldValue, name: textFieldName } = event.currentTarget;
@@ -27,18 +27,11 @@ export default function LoginBox() {
     }));
   };
 
-  const handleClickSignIn = async () => {
-    const validUser = await loginAction({
-      email: credentials.email,
-      password: credentials.password,
-    });
-    if (validUser) {
-      router.push("/dashboard");
-    } else {
-      setFailedLogin(true);
+  const handleClickSignUp = () => {
+    if (credentials.name === '' || credentials.email === '' || credentials.password === '') {
+      setFailedLogin(true)
     }
-  };
-
+  }
 
   return (
     <Box
@@ -50,7 +43,7 @@ export default function LoginBox() {
       }}
     >
       <Typography variant="h5">
-        <strong>DD-MM Visualizer Sign In</strong>
+        <strong>DD-MM Visualizer SignUp</strong>
       </Typography>
       <Paper
         sx={{
@@ -64,9 +57,18 @@ export default function LoginBox() {
         }}
       >
         <TextField
+          name="name"
+          type="name"
+          placeholder="Name"
+          fullWidth
+          onChange={handleInputChange}
+          required
+        />
+        <TextField
           name="email"
           type="email"
           placeholder="Email Address"
+          fullWidth
           onChange={handleInputChange}
           required
         />
@@ -75,14 +77,20 @@ export default function LoginBox() {
           type="password"
           placeholder="Password"
           onChange={handleInputChange}
+          fullWidth
           required
         />
-        <Button variant="contained" onClick={handleClickSignIn}>
-          Sign in
-        </Button>
-        {failedLogin && <Alert severity="warning">Invalid Credentials</Alert>}
+          <Button variant="contained" color="secondary" fullWidth={true} onClick={handleClickSignUp}>
+            Sign Up
+          </Button>
+        {failedLogin && (
+          <Alert sx={{ width: "100%" }} severity="warning">
+            Fields are empty
+          </Alert>
+        )}
+
       </Paper>
-      <Typography>No account? <Link href="/signup">Sign Up</Link></Typography>
+      <Typography>Already have an account? <Link href="/login">Login</Link></Typography>
     </Box>
   );
 }

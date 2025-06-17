@@ -8,7 +8,7 @@ import {
   Get,
   Request,
 } from 'tsoa'
-import { Authenticated, Credentials, User } from '.'
+import { Authenticated, Credentials, NewUser, User } from '.'
 import { AuthService } from './service'
 import { SessionUser } from '../types';
 
@@ -60,6 +60,22 @@ export class AuthController extends Controller {
   ): Promise<SessionUser | undefined> {
     const requestor = request.user as SessionUser;
     return requestor;
+  }
+
+  @Post('signup')
+  @Response('201', 'user successfully signed up')
+  @Response('409', 'Email already associated')
+  public async signup(
+    @Body() credentials: NewUser,
+  ): Promise<Authenticated | undefined> {
+    try {
+      const createdUser = await new AuthService().signUp(credentials);
+      this.setStatus(201); 
+      return createdUser
+    } catch (error) {
+      console.error('Error during authcontroller:', error);
+      return;
+    }
   }
 
 

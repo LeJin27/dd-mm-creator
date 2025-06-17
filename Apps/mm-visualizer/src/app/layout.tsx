@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ThemeWrapper from "../components/ThemeWrapper";
 import { cookies } from "next/headers";
+import { Fade } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Create Next App",

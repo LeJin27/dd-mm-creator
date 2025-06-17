@@ -15,6 +15,13 @@ const commonTheme = {
         },
       },
     },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          transition: 'all 0.1s linear',
+        },
+      },
+    },
   },
 };
 export const lightTheme = createTheme({
@@ -22,11 +29,11 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: "#1AA74A",
+      main: "#007fff",
       contrastText: "#ffffff",
     },
     secondary: {
-      main: '#063E22',
+      main: '#f58a07',
     },
     background: {
       default: "#f8f8f8",
@@ -39,11 +46,11 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: "#1AA74A",
+      main: "#007fff",
       contrastText: "#ffffff",
     },
     secondary: {
-      main: '#063E22',
+      main: '#f58a07',
     },
     background: {
       default: "#121212",

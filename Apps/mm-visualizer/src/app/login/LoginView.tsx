@@ -1,8 +1,9 @@
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import LoginBox from "./LoginBox";
 
 export default function LoginView() {
   return (
+    
     <Grid
       container
       sx={{

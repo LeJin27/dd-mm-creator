@@ -15,3 +15,9 @@ export interface User {
   name: string
   email: string
 }
+
+export interface NewUserCredentials {
+  name: string
+  email: string
+  password: string
+}

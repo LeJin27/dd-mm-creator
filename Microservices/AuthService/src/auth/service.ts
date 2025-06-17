@@ -1,8 +1,13 @@
-import { Authenticated, Credentials, User } from ".";
+import { Authenticated, Credentials, NewUser, User } from ".";
 import { pool } from "../db";
 import { midt, SessionUser, UUID } from "../types";
 import * as jwt from "jsonwebtoken";
-import { selectByCredentials, selectUserById, selectUserInfoById } from "./queries";
+import {
+  insertIntoMember,
+  selectByCredentials,
+  selectUserById,
+  selectUserInfoById,
+} from "./queries";
 
 const envSecret = process.env.MASTER_SECRET;
 if (!envSecret) {
@@ -67,8 +72,8 @@ export class AuthService {
       } else {
         return undefined;
       }
-    } catch  {
-      return undefined
+    } catch {
+      return undefined;
     }
   }
 
@@ -87,7 +92,33 @@ export class AuthService {
       }
     } catch (error) {
       console.log(error);
-      return undefined
+      return undefined;
+    }
+  }
+
+  public async signUp(
+    newUserCredentials: NewUser
+  ): Promise<Authenticated | undefined> {
+    const query = {
+      text: insertIntoMember,
+      values: [
+        newUserCredentials.email,
+        newUserCredentials.password,
+        newUserCredentials.name,
+      ],
+    };
+
+    try {
+      const { rows } = await pool.query(query);
+      if (rows.length === 1) {
+        const user = rows[0];
+        const accessToken = generateToken(user.id);
+        return { name: user.name, accessToken: accessToken, email: user.email };
+      } else {
+        return undefined;
+      }
+    } catch {
+      return undefined;
     }
   }
 }
