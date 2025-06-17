@@ -43,8 +43,8 @@ export class AuthService {
         throw new Error(response.statusText);
       }
       return await response.json();
-    } catch (error) {
-      console.error("New account failed:", error);
+    } catch {
+      //console.error("New account failed:", error);
       return undefined;
     }
   }

@@ -69,6 +69,17 @@ export class AuthController extends Controller {
     @Body() credentials: NewUser,
   ): Promise<Authenticated | undefined> {
     try {
+      const emailExists = await new AuthService().emailExistsService(credentials.email)
+      if (emailExists) {
+        this.setStatus(409)
+        return
+      }
+    } catch (error) {
+      console.error('Error during signup for checking if emial exists:', error);
+      return;
+    }
+
+    try {
       const createdUser = await new AuthService().signUp(credentials);
       this.setStatus(201); 
       return createdUser

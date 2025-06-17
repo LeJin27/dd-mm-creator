@@ -18,7 +18,7 @@ export const selectUserInfoById = `
   FROM member
   WHERE id = $1
   AND (member.data->>'suspended' IS NULL OR member.data->>'suspended' != 'true');
-`
+`;
 
 export const insertIntoMember = `
       INSERT INTO member (data) VALUES (jsonb_build_object(
@@ -29,3 +29,7 @@ export const insertIntoMember = `
         'suspended', 'false'
       ))
       RETURNING id, data->>'name' AS name, data->>'email' AS email;`;
+
+export const emailExistsQuery = `
+  SELECT * FROM member
+  WHERE data->>'email' = $1::text;`;

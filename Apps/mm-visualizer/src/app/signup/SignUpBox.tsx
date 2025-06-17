@@ -11,13 +11,16 @@ import {
 } from "@mui/material";
 
 import { useState, ChangeEvent } from "react";
+import { signUpAction } from "./action";
+import { useRouter } from "next/navigation";
 export default function SignInBox() {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [failedLogin, setFailedLogin] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: textFieldValue, name: textFieldName } = event.currentTarget;
@@ -27,10 +30,19 @@ export default function SignInBox() {
     }));
   };
 
-  const handleClickSignUp = () => {
+  const handleClickSignUp = async() => {
     if (credentials.name === '' || credentials.email === '' || credentials.password === '') {
-      setFailedLogin(true)
+      setErrorMessage('Unfilled parameters')
+    } else {
+      const validUser = await signUpAction({name: credentials.name, email: credentials.email, password: credentials.password})
+      if (validUser) {
+        router.push("/dashboard");
+      } else {
+        setErrorMessage('Email already taken')
+      }
     }
+
+
   }
 
   return (
@@ -83,9 +95,9 @@ export default function SignInBox() {
           <Button variant="contained" color="secondary" fullWidth={true} onClick={handleClickSignUp}>
             Sign Up
           </Button>
-        {failedLogin && (
+        {errorMessage && (
           <Alert sx={{ width: "100%" }} severity="warning">
-            Fields are empty
+            {errorMessage}
           </Alert>
         )}
 

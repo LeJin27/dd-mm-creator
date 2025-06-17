@@ -3,6 +3,7 @@ import { pool } from "../db";
 import { midt, SessionUser, UUID } from "../types";
 import * as jwt from "jsonwebtoken";
 import {
+  emailExistsQuery as emailExistsQuery,
   insertIntoMember,
   selectByCredentials,
   selectUserById,
@@ -74,6 +75,22 @@ export class AuthService {
       }
     } catch {
       return undefined;
+    }
+  }
+  public async emailExistsService(email: string | undefined): Promise<boolean> {
+    const query = {
+      text: emailExistsQuery,
+      values: [email],
+    };
+    try {
+      const { rows } = await pool.query(query);
+      if (rows.length === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch {
+      return false;
     }
   }
 

@@ -34,7 +34,7 @@ const validCredentials = {
 const signUpCredentials = {
   email: "dave@books.com",
   password: "davemember",
-  name: "dave",
+  name: "Dave Member",
 };
 const validDaveCredentials = {
   email: "dave@books.com",
@@ -105,10 +105,12 @@ test("200 Authorized: User has valid jwt", async () => {
 });
 
 test("201: User can sign up", async () => {
-  await supertest(server)
+  const res = await supertest(server)
     .post("/api/v0/auth/signup")
     .send(signUpCredentials)
     .expect(201);
+  expect(res.body.email).toEqual("dave@books.com");
+  expect(res.body.name).toEqual("Dave Member");
 });
 
 test("200: User can sign up and login", async () => {
@@ -117,4 +119,15 @@ test("200: User can sign up and login", async () => {
     .send(signUpCredentials)
     .expect(201);
   await getLoginAccessToken(validDaveCredentials);
+});
+
+test("409: User email already exists for signup", async () => {
+  await supertest(server)
+    .post("/api/v0/auth/signup")
+    .send(signUpCredentials)
+    .expect(201);
+  await supertest(server)
+    .post("/api/v0/auth/signup")
+    .send(signUpCredentials)
+    .expect(409);
 });
