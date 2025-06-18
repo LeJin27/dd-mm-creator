@@ -39,7 +39,7 @@ test('should resolve with user data when fetch returns 200', async () => {
 
   const authHeader = 'Bearer mockToken';
   const authService = new AuthService();
-  const result = await authService.check(authHeader);
+  const result = await authService.validJwt(authHeader);
   console.log(result)
 
   expect(global.fetch).toHaveBeenCalledWith('http://localhost:3010/api/v0/auth/validJwt', {
