@@ -12,3 +12,6 @@ services:
       - .././Microservices/AuthService/sql/databases.sql:/docker-entrypoint-initdb.d/1.databases.sql
       - .././Microservices/AuthService/sql/schema.sql:/docker-entrypoint-initdb.d/2.schema.sql
       - .././Microservices/AuthService/sql/data.sql:/docker-entrypoint-initdb.d/3.data.sql
+      - .././Microservices/MobService/sql/databases.sql:/docker-entrypoint-initdb.d/1.databases.sql
+      - .././Microservices/MobService/sql/schema.sql:/docker-entrypoint-initdb.d/2.schema.sql
+      - .././Microservices/MobService/sql/data.sql:/docker-entrypoint-initdb.d/3.data.sql

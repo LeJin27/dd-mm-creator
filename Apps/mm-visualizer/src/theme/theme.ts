@@ -16,11 +16,6 @@ const commonTheme = {
       },
     },
     MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          transition: 'all 0.1s linear',
-        },
-      },
     },
   },
 };

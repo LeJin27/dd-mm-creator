@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 
-import Dashboard from './Dashboard'
+import DashboardView from './DashboardView'
 
 const Page: NextPage = () => {
   return (
-    <Dashboard />
+    <DashboardView />
   )
 }
 
