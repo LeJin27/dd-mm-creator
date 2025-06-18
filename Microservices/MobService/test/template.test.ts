@@ -1,4 +1,4 @@
-import { vi, test, beforeAll, afterAll, expect } from "vitest";
+import { vi, test, beforeAll, afterAll, expect, describe } from "vitest";
 import * as http from "http";
 import supertest from "supertest";
 import { app, bootstrap } from "../src/app";
@@ -27,7 +27,7 @@ test("Unauthorized access to template", async () => {
     .send({
       query: `
         query {
-          template 
+          getAll 
         }
       `,
     })
@@ -43,7 +43,7 @@ test("Unauthorized access to template with invalid jwt", async () => {
     .send({
       query: `
         query {
-          template 
+          getAll 
         }
       `,
     })
@@ -52,6 +52,16 @@ test("Unauthorized access to template with invalid jwt", async () => {
     });
 });
 
+
+const expectedMob = {
+  id: '50990564-ac2d-47b6-be71-f1f557878c0c',
+  name: 'carrion_eater_B',
+  image: 'random_image_url',
+  size: 1,
+  description: 'not null'
+}
+
+
 test("Authorized access to template with valid jwt", async () => {
     global.fetch = vi.fn().mockResolvedValueOnce({
     status: 200,
@@ -59,21 +69,29 @@ test("Authorized access to template with valid jwt", async () => {
       Promise.resolve({
         id: 'user123',
         name: 'John Doe',
-        role: 'admin',
+        role: 'doesnt matter',
       }),
   });
-
   await supertest(server)
     .post("/graphql")
     .set("Authorization", "Bearer " + 'random ass token')
     .send({
       query: `
         query {
-          template 
+          getAll {
+          id
+          name
+          image
+          size
+          description
+          }
         }
       `,
     })
     .then((res) => {
-      expect(res.body.data.template).toEqual('AuthorizedTemplate')
+      //console.log(res.body.data.getAll[0])
+      //console.log(expectedMob)
+      expect(res.body.data.getAll[0]).toEqual(expectedMob)
+
     });
 });

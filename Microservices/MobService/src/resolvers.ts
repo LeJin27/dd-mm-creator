@@ -1,3 +1,3 @@
-import { TemplateResolver } from './template/resolver'
+import { MobResolver } from './mob/resolver'
 
-export const resolvers = [TemplateResolver] as const
+export const resolvers = [MobResolver] as const
