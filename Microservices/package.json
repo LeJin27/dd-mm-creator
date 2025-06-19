@@ -7,8 +7,8 @@
   "repository": "none",
   "scripts": {
     "dev-auth": "cd AuthService && npm run dev",
-    "dev-mash": "cd MashService && npm run dev",
-    "dev": "concurrently \"npm run dev-auth\" \"npm run dev-mash\" "
+    "dev-mob": "cd MobService && npm run dev",
+    "dev": "concurrently \"npm run dev-auth\" \"npm run dev-mob\" "
   },
   "devDependencies": {
     "@types/cors": "^2.8.18",

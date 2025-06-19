@@ -19,6 +19,7 @@ const commonTheme = {
     },
   },
 };
+
 export const lightTheme = createTheme({
   ...commonTheme,
   palette: {

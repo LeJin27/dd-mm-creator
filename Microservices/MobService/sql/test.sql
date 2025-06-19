@@ -11,3 +11,13 @@ VALUES (
     'description', 'not null'
   )
 );
+
+INSERT INTO mob(id, data) 
+VALUES (
+  '186af181-46fa-4c13-8a98-6e284e3b5dfc',
+  jsonb_build_object(
+    'name','carrion_eater_C',
+    'size', 2,
+    'image', 'random_image_url'
+  )
+);
