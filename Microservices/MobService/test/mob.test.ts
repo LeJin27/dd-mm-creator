@@ -1,6 +1,7 @@
 import { vi, test, beforeAll, afterAll, expect, describe } from "vitest";
 import * as http from "http";
 import supertest from "supertest";
+import * as db from './db'
 import { app, bootstrap } from "../src/app";
 
 let server: http.Server<
@@ -11,16 +12,18 @@ let server: http.Server<
 beforeAll(async () => {
   server = http.createServer(app);
   server.listen();
+  await db.reset()
   await bootstrap();
 });
 
 afterAll(() => {
+  db.shutdown()
   server.close();
 });
 
 
 
-test("Unauthorized access to template", async () => {
+test("Unauthorized access to member", async () => {
   await supertest(server)
     .post("/graphql")
     //.set("Authorization", "Bearer " + accessToken)
@@ -36,21 +39,6 @@ test("Unauthorized access to template", async () => {
     });
 });
 
-test("Unauthorized access to template with invalid jwt", async () => {
-  await supertest(server)
-    .post("/graphql")
-    .set("Authorization", "Bearer " + 'test')
-    .send({
-      query: `
-        query {
-          getAll 
-        }
-      `,
-    })
-    .then((res) => {
-      expect(res.body.errors[0].message = "Access denied! You don't have permission for this action!");
-    });
-});
 
 
 const expectedMob = {

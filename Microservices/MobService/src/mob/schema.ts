@@ -29,3 +29,12 @@ export class Mob {
   description?: string;
 
 }
+
+@ObjectType()
+export class DBMob {
+  @Field(() => ID)
+  id!: string
+
+  @Field(() => Mob)
+  data!: Mob
+}

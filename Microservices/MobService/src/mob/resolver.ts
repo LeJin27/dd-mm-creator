@@ -8,6 +8,8 @@ import {
   Int
 } from "type-graphql"
 import { Mob } from "./schema";
+import { Request } from "express"
+import { MobService } from "./service";
 
 
 @Resolver()
@@ -21,15 +23,13 @@ export class MobResolver {
   @Authorized('user')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Query(() => [Mob])
-  getAll(): Mob[] {
-    const dummyMob = {
-  id: '50990564-ac2d-47b6-be71-f1f557878c0c',
-  name: 'carrion_eater_B',
-  image: 'random_image_url',
-  size: 1,
-  description: 'not null'
-}
-    return [dummyMob];
+  async getAll(
+    @Ctx() Request: Request
+  ): Promise<Mob[]> {
+
+    const user = Request.user?.id
+    const mobs = await new MobService().getAll();
+    return mobs;
   }
 }
 
