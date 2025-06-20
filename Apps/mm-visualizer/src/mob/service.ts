@@ -36,4 +36,33 @@ export class MobService {
         .catch((error) => reject(error));
     });
   }
+  public async getCount(cookie: string | undefined): Promise<number> {
+    return new Promise((resolve, reject) => {
+      fetch("http://localhost:4020/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookie}`,
+        },
+        body: JSON.stringify({
+          query: `
+            query {
+              getCount             
+            }
+        `,
+        }),
+      })
+        .then((response) => {
+          if (response.status !== 200) {
+            reject("Unauthorized");
+            return;
+          }
+          return response.json();
+        })
+        .then((json) => {
+          resolve(json.data.getCount);
+        })
+        .catch((error) => reject(error));
+    });
+  }
 }

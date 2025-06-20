@@ -1,4 +1,4 @@
-import { DBMob, Mob } from "./schema";
+import { DBMob, Mob, NewMob } from "./schema";
 import * as queries from './queries'
 import { pool } from "../db";
 
@@ -32,5 +32,30 @@ export class MobService {
     const { rows } = await pool.query(query);
     const mobs = await this.rowToMob(rows);
     return mobs;
+  }
+  public async getCount(): Promise<number> {
+    const query = {
+      text: queries.getCount,
+      //values: [userId],
+    };
+
+    const { rows } = await pool.query(query);
+    const baseNumber = 10
+    const count = parseInt(rows[0].count, baseNumber);
+
+    return count;
+  }
+  public async createMob(newMob : NewMob): Promise<Mob> {
+    const query = {
+      text: queries.createMob,
+      values: [newMob.name, newMob.size, newMob.image, newMob.description],
+    };
+    const { rows } = await pool.query(query);
+
+    const mobs = await this.rowToMob(rows);
+    return mobs[0]
+
+
+
   }
 }

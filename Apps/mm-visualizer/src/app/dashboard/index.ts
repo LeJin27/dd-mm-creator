@@ -5,4 +5,5 @@ export interface DashboardComponentProps {
   name: string
 
   number: number
+  onClick? : () => void;
 }

@@ -1,5 +1,5 @@
 import { IsUUID, IsDateString, IsNumber} from 'class-validator'
-import { Field, ID, ObjectType, } from 'type-graphql'
+import { Field, ID, InputType, ObjectType, } from 'type-graphql'
 
 
 @ObjectType()
@@ -37,4 +37,22 @@ export class DBMob {
 
   @Field(() => Mob)
   data!: Mob
+}
+
+@InputType()
+export class NewMob {
+
+  @Field(() => String) 
+  name!: string
+
+  @Field(() => Number)
+  @IsNumber()
+  size!: number;
+
+  @Field(() => String, { nullable: true }) 
+  image?: string;            
+
+  @Field(() => String, { nullable: true }) 
+  description?: string;
+
 }

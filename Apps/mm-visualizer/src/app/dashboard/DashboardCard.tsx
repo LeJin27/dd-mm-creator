@@ -4,7 +4,7 @@ import { DashboardComponentProps } from ".";
 export default function DashboardCard(props: DashboardComponentProps) {
   return (
     <Card sx={{ m: 1 }}>
-      <CardActionArea sx ={{p:3}}>
+      <CardActionArea sx ={{p:3}} onClick={props.onClick}>
       <Box
         sx={{
           display: "flex",

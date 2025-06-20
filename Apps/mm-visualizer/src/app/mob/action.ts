@@ -13,3 +13,12 @@ export async function getAllMobsAction(): Promise<Mob[] | undefined> {
   }
 }
 
+export async function getCountMobsAction(): Promise<number> {
+  const cookie = (await cookies()).get('session')?.value;
+
+  try {
+    return new MobService().getCount(cookie);
+  } catch {
+    return 0
+  }
+}

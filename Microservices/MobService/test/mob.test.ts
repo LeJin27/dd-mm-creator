@@ -1,7 +1,7 @@
 import { vi, test, beforeAll, afterAll, expect, describe } from "vitest";
 import * as http from "http";
 import supertest from "supertest";
-import * as db from './db'
+import * as db from "./db";
 import { app, bootstrap } from "../src/app";
 
 let server: http.Server<
@@ -12,16 +12,20 @@ let server: http.Server<
 beforeAll(async () => {
   server = http.createServer(app);
   server.listen();
-  await db.reset()
+  await db.reset();
   await bootstrap();
 });
 
 afterAll(() => {
-  db.shutdown()
+  db.shutdown();
   server.close();
 });
-
-
+export function helperMockFetchOnce(jsonData: any, status = 200) {
+  global.fetch = vi.fn().mockResolvedValueOnce({
+    status,
+    json: () => Promise.resolve(jsonData),
+  });
+}
 
 test("Unauthorized access to member", async () => {
   await supertest(server)
@@ -35,34 +39,34 @@ test("Unauthorized access to member", async () => {
       `,
     })
     .then((res) => {
-      expect(res.body.errors[0].message = "Access denied! You don't have permission for this action!");
+      expect(
+        (res.body.errors[0].message =
+          "Access denied! You don't have permission for this action!")
+      );
     });
 });
 
-
-
 const expectedMob = {
-  id: '50990564-ac2d-47b6-be71-f1f557878c0c',
-  name: 'carrion_eater_B',
-  image: 'random_image_url',
+  id: "50990564-ac2d-47b6-be71-f1f557878c0c",
+  name: "carrion_eater_B",
+  image: "random_image_url",
   size: 1,
-  description: 'not null'
-}
-
+  description: "not null",
+};
 
 test("Authorized access to template with valid jwt", async () => {
-    global.fetch = vi.fn().mockResolvedValueOnce({
+  global.fetch = vi.fn().mockResolvedValueOnce({
     status: 200,
     json: () =>
       Promise.resolve({
-        id: 'user123',
-        name: 'John Doe',
-        role: 'doesnt matter',
+        id: "user123",
+        name: "John Doe",
+        role: "doesnt matter",
       }),
   });
   await supertest(server)
     .post("/graphql")
-    .set("Authorization", "Bearer " + 'random ass token')
+    .set("Authorization", "Bearer " + "random ass token")
     .send({
       query: `
         query {
@@ -79,7 +83,90 @@ test("Authorized access to template with valid jwt", async () => {
     .then((res) => {
       //console.log(res.body.data.getAll[0])
       //console.log(expectedMob)
-      expect(res.body.data.getAll[0]).toEqual(expectedMob)
+      expect(res.body.data.getAll[0]).toEqual(expectedMob);
+    });
+});
 
+test("200: getCount return mob count", async () => {
+  global.fetch = vi.fn().mockResolvedValueOnce({
+    status: 200,
+    json: () =>
+      Promise.resolve({
+        id: "user123",
+        name: "John Doe",
+        role: "doesnt matter",
+      }),
+  });
+  await supertest(server)
+    .post("/graphql")
+    .set("Authorization", "Bearer " + "random ass token")
+    .send({
+      query: `
+        query {
+          getCount         
+        }
+      `,
+    })
+    .then((res) => {
+      //console.log(res.body.data.getAll[0])
+      //console.log(expectedMob)
+      expect(res.body.data.getCount).toEqual(2);
+    });
+});
+
+test("200: createMob return mob", async () => {
+  helperMockFetchOnce({
+    id: "user123",
+    name: "John Doe",
+    role: "doesnt matter",
+  });
+  await supertest(server)
+    .post("/graphql")
+    .set("Authorization", "Bearer " + "random ass token")
+    .send({
+      query: `
+        mutation  {
+          createMob (input: {
+            name: "randomassname",
+            size: 1
+          }) {
+          id
+          name
+            
+          }
+        }
+      `,
+    })
+    .then((res) => {
+      console.log(res.body);
+      expect(res.body.data.createMob.name).toEqual("randomassname");
+    });
+});
+
+test("200: createMob missing required parameters", async () => {
+  helperMockFetchOnce({
+    id: "user123",
+    name: "John Doe",
+    role: "doesnt matter",
+  });
+  await supertest(server)
+    .post("/graphql")
+    .set("Authorization", "Bearer " + "random ass token")
+    .send({
+      query: `
+        mutation  {
+          createMob (input: {
+            size: 1
+          }) {
+          id
+          name
+            
+          }
+        }
+      `,
+    })
+    .then((res) => {
+      console.log(res.body)
+        expect(res.body.errors[0].message).toEqual('Field "NewMob.name" of required type "String!" was not provided.');
     });
 });

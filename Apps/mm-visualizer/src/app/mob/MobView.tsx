@@ -1,30 +1,25 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from "react";
-import { getAllMobs, getAllMobsAction } from "./action";
-import { Mob } from "../../mob";
+import { Grid } from "@mui/material";
+import MobList from "./MobList";
 
 export default function MobView() {
-  const [mobList, setMobList] = useState<Mob[]>([]);
-
-  useEffect(() => {
-    const getAllMobsHelper = async () => {
-      const mobs = await getAllMobsAction();
-      if (mobs) {
-        setMobList(mobs);
-      } else {
-        setMobList([]);
-      }
-    };
-
-    getAllMobsHelper();
-  }, []);
 
   return (
-    <div>
-      {mobList.map((mob) => (
-        <div key={mob.id}>{mob.name}</div>
-      ))}
-    </div>
+    <Grid
+      container
+      sx={{
+        justifyContent: "center",
+        border: "1px solid black",
+        height:"100vh"
+      }}
+    >
+      <Grid size={6} sx={{ border: "1px solid black", height: "100%" }}>
+        <div>Me</div>
+      </Grid>
+      <Grid size={4} sx={{ border: "1px solid black", height: "100%" }}>
+        <MobList/>
+      </Grid>
+    </Grid>
   );
 }
