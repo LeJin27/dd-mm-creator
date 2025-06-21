@@ -1,4 +1,4 @@
-import { Mob } from ".";
+import { Mob, NewMob } from ".";
 
 export class MobService {
   public async getAll(cookie: string | undefined): Promise<Mob[]> {
@@ -61,6 +61,45 @@ export class MobService {
         })
         .then((json) => {
           resolve(json.data.getCount);
+        })
+        .catch((error) => reject(error));
+    });
+  }
+  public async create(newMob: NewMob, cookie: string | undefined): Promise<Mob> {
+    console.log(newMob)
+    return new Promise((resolve, reject) => {
+      fetch("http://localhost:4020/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookie}`,
+        },
+        body: JSON.stringify({
+          query: `
+            mutation ($mob: NewMob!) {
+              create (mob: $mob) {
+                id
+                name
+                image
+                size
+                description
+              }
+            }
+        `,
+          variables: {
+            mob: newMob,
+          },
+        }),
+      })
+        .then((response) => {
+          if (response.status !== 200) {
+            reject("Unauthorized");
+            return;
+          }
+          return response.json();
+        })
+        .then((json) => {
+          resolve(json.data.create);
         })
         .catch((error) => reject(error));
     });

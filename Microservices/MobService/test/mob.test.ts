@@ -126,7 +126,7 @@ test("200: createMob return mob", async () => {
     .send({
       query: `
         mutation  {
-          createMob (input: {
+          create (mob: {
             name: "randomassname",
             size: 1
           }) {
@@ -139,7 +139,7 @@ test("200: createMob return mob", async () => {
     })
     .then((res) => {
       console.log(res.body);
-      expect(res.body.data.createMob.name).toEqual("randomassname");
+      expect(res.body.data.create.name).toEqual("randomassname");
     });
 });
 
@@ -155,7 +155,7 @@ test("200: createMob missing required parameters", async () => {
     .send({
       query: `
         mutation  {
-          createMob (input: {
+          create (mob: {
             size: 1
           }) {
           id

@@ -1,18 +1,34 @@
 import { Box, Button, Fab, Paper, TextField, Typography } from "@mui/material";
-import React from "react";
+import { useState, ChangeEvent } from "react";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { createMobAction } from "./action";
 
 export default function MobCreator() {
   const growFull = { flexGrow: 1, height: "100%" };
 
+  const [mobDetails, setMobDetails] = useState({ name: undefined, size: 1, description: undefined});
 
-  const nameOfMobButton =()=> {
-    return (
-    <Button variant="contained">Test</Button>
-    )
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value: textFieldValue, name: textFieldName } = event.currentTarget;
+    setMobDetails((prev) => ({
+      ...prev,
+      [textFieldName]: textFieldValue,
+    }));
+  };
+
+  const handleClickEnter = async() => {
+    const mob = await createMobAction({
+      name: mobDetails.name,
+      size: Number(mobDetails.size),
+      description: mobDetails.description,
+      image: undefined
+    });
+    console.log(mob)
   }
+
+
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ ...growFull }}>
         <Paper
           sx={{
@@ -24,7 +40,7 @@ export default function MobCreator() {
           }}
         >
           <Typography variant="h3">
-            <strong>Create your Mob</strong>
+            <strong>Add new Mob</strong>
           </Typography>
           <Fab>
             <Box
@@ -40,13 +56,13 @@ export default function MobCreator() {
           </Fab>
           <Box width="60%">
 
-          <TextField placeholder="Name of mob" fullWidth />
-          <TextField placeholder = "Size of Mob" inputProps={{ type: 'number'}} defaultValue="1"  fullWidth/>
-          <TextField placeholder="Description (Optional)" fullWidth/>
-          <Button fullWidth variant="contained">Enter</Button>
+          <TextField name = "name" onChange={handleInputChange} placeholder="Name of mob" fullWidth />
+          <TextField name = "size" onChange ={handleInputChange} placeholder = "Size of Mob" inputProps={{ type: 'number'}} defaultValue="1"  fullWidth/>
+          <TextField name = "description" multiline = {true} minRows= {4} onChange = {handleInputChange} placeholder="Description (Optional)" fullWidth/>
+          <Button fullWidth variant="contained" onClick={handleClickEnter}>Enter</Button>
           </Box>
         </Paper>
       </Box>
-    </React.Fragment>
+    </>
   );
 }
