@@ -2,6 +2,7 @@
 
 import { Grid } from "@mui/material";
 import MobList from "./MobList";
+import MobCreator from "./MobCreator";
 
 export default function MobView() {
 
@@ -15,7 +16,7 @@ export default function MobView() {
       }}
     >
       <Grid size={6} sx={{ border: "1px solid black", height: "100%" }}>
-        <div>Me</div>
+        <MobCreator/>
       </Grid>
       <Grid size={4} sx={{ border: "1px solid black", height: "100%" }}>
         <MobList/>
