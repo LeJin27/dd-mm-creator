@@ -21,3 +21,7 @@ export interface NewUserCredentials {
   email: string
   password: string
 }
+
+export interface GoogleToken {
+  token: string
+}

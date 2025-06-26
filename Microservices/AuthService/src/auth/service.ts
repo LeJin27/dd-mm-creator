@@ -12,6 +12,7 @@ import * as jwt from "jsonwebtoken";
 import {
   emailExistsQuery as emailExistsQuery,
   insertIntoMember,
+  insertIntoMemberGoogle,
   selectByCredentials,
   selectUserById,
   selectUserBySub,
@@ -107,12 +108,43 @@ export class AuthService {
         const accessToken = generateToken(user.id);
         return { name: user.name, email: user.email, accessToken: accessToken};
       } else {
+        return this.signUpGoogle(googleToken)
+      }
+    } catch {
+      return undefined
+    }
+  }
+
+  public async signUpGoogle(
+    googleToken: GoogleToken
+  ): Promise<Authenticated | undefined> {
+    const CLIENT_ID_GOOGLE = process.env.GOOGLE_CLIENT_ID;
+    try {
+      const client = new OAuth2Client(CLIENT_ID_GOOGLE);
+      const ticket = await client.verifyIdToken({
+        idToken: googleToken.token,
+        audience: CLIENT_ID_GOOGLE,
+      });
+      const email = ticket.getPayload()?.email
+      const name = ticket.getPayload()?.name
+      const subId = ticket.getPayload()?.sub
+      const query = {
+        text: insertIntoMemberGoogle,
+        values: [email, name, subId],
+      };
+      const { rows } = await pool.query(query);
+      if (rows.length === 1) {
+        const user = rows[0];
+        const accessToken = generateToken(user.id);
+        return { name: user.name, email: user.email, accessToken: accessToken};
+      } else {
         return undefined
       }
     } catch {
       return undefined
     }
   }
+
 
   public async emailExistsService(email: string | undefined): Promise<boolean> {
     const query = {

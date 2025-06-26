@@ -42,3 +42,15 @@ export const selectUserBySub = `
   WHERE data->>'sub' = $1
   AND (member.data->>'suspended' IS NULL OR member.data->>'suspended' != 'true');
 `;
+
+
+export const insertIntoMemberGoogle = `
+  INSERT INTO member (data) VALUES (jsonb_build_object(
+    'email', $1::text,
+    'name', $2::text,
+    'roles', jsonb_build_array('user')::text,
+    'suspended', 'false',
+    'provider', 'google',
+    'sub', $3::text
+  ))
+  RETURNING id, data->>'name' AS name, data->>'email' AS email;`;

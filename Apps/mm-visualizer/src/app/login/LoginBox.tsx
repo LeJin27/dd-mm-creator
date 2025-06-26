@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 
 import { useState, ChangeEvent } from "react";
-import { loginAction } from "./action";
+import { loginAction, loginGoogleAction } from "./action";
 import { useRouter } from "next/navigation";
-import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import { GoogleLogin, } from "@react-oauth/google";
 export default function LoginBox() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [failedLogin, setFailedLogin] = useState(false);
@@ -45,8 +45,14 @@ export default function LoginBox() {
     return (
       <>
         <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse.credential)
+          onSuccess={async (credentialResponse) => {
+            const credential = credentialResponse.credential!;
+            const token = {token : credential};
+            const validUser = await loginGoogleAction(token);
+            if (validUser) {
+              router.push("/dashboard");
+            }
+
           }}
           onError={() => {
             console.log("Login Failed");
