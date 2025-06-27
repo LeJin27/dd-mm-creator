@@ -1,7 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getAllMobsAction } from "./action";
-import { Mob } from "../../mob";
+import { useContext } from "react";
 import {
   Autocomplete,
   Box,
@@ -12,22 +10,15 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import MobCard from "./MobCard";
+import MobContext from "./MobContext";
 
 export default function MobList() {
-  const [mobList, setMobList] = useState<Mob[]>([]);
+  const context = useContext(MobContext);
 
-  useEffect(() => {
-    const getAllMobsHelper = async () => {
-      const mobs = await getAllMobsAction();
-      if (mobs) {
-        setMobList(mobs);
-      } else {
-        setMobList([]);
-      }
-    };
-
-    getAllMobsHelper();
-  }, []);
+  if (!context) {
+    throw new Error("Context error");
+  }
+  const { mobList } = context;
 
   const enterNewMobButton = () => {
     return (
@@ -43,6 +34,7 @@ export default function MobList() {
       </>
     );
   };
+
   return (
     <Box
       sx={{
