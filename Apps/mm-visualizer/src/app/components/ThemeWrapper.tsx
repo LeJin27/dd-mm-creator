@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { lightTheme, darkTheme } from "../theme/theme";
+import { lightTheme, darkTheme } from "../../theme/theme";
 import SunnyIcon from "@mui/icons-material/Sunny";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import { Fab } from "@mui/material";

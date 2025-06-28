@@ -1,57 +1,25 @@
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardMedia,
-  Fab,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, CardMedia, Fab, Typography } from "@mui/material";
 import { Mob } from "../../mob";
 import GlobeIcon from "../../../public/place_holder.webp";
-
-const growFull = { flexGrow: 1, height: "100%" };
 
 export default function MobCard({ mob }: { mob: Mob }) {
   return (
     <Box
-      sx={{ display: "flex", height: "100%", width: "100%", minHeight: "5vh" }}
+      sx={{ alignItems: "center", display: "flex", flexDirection: "column", minHeight:"20vh"}}
     >
-      <Paper sx={{ width: "100%", display: "flex", alignItems: "center" }}>
-        <Card sx={{ ...growFull }}>
-          <CardActionArea
-            sx={{
-              ...growFull,
-              display: "flex",
-              border: "1px solid white",
-              justifyContent: "left",
-              gap: 2,
-              p: 1,
-            }}
-          >
-            <Fab
-              component="div"
-              color="secondary"
-              sx={{
-                "&:hover": {
-                  bgcolor: "secondary.main",
-                },
-              }}
-            >
-              <CardMedia
-                component="image"
-                image={GlobeIcon.src}
-                color="white"
-                sx={{ height: 60, width: 60 }}
-              />
-            </Fab>
+      <Fab color="primary" size="large">
+        <CardMedia
+          component="image"
+          image={GlobeIcon.src}
+          color="white"
+          sx={{ height: 60, width: 60 }}
+        />
+      </Fab>
 
-            <Typography>
-              <strong>{mob.name}</strong>
-            </Typography>
-          </CardActionArea>
-        </Card>
-      </Paper>
+      <Typography variant="h3" align="center">
+        {mob.name}
+      </Typography>
+      <Typography>{mob.description}</Typography>
     </Box>
   );
 }

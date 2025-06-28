@@ -1,4 +1,4 @@
-import { Box, Button, Fab, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Fab, TextField, Typography } from "@mui/material";
 import { useState, ChangeEvent, useContext } from "react";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { createMobAction } from "./action";
@@ -12,7 +12,7 @@ export default function MobCreator() {
   }
   const { setMobList } = context;
 
-  const growFull = { flexGrow: 1, height: "100%" };
+  const growFull = { flexGrow: 1, };
 
   const [mobDetails, setMobDetails] = useState({
     name: undefined,
@@ -45,16 +45,7 @@ export default function MobCreator() {
 
   return (
     <>
-      <Box sx={{ ...growFull }}>
-        <Paper
-          sx={{
-            ...growFull,
-            flexDirection: "column",
-            alignItems: "center",
-            display: "flex",
-            gap: 2,
-          }}
-        >
+      <Box sx={{ ...growFull , alignItems:"center", display:"flex", flexDirection:"column", gap: 2}}>
           <Typography variant="h3">
             <strong>Add new Mob</strong>
           </Typography>
@@ -102,7 +93,6 @@ export default function MobCreator() {
               Enter
             </Button>
           </Box>
-        </Paper>
       </Box>
     </>
   );

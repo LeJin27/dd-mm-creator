@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
-import MobCard from "./MobCard";
+import MobListCard from "./MobListCard";
 import MobContext from "./MobContext";
 
 export default function MobList() {
@@ -45,9 +45,16 @@ export default function MobList() {
         width: "100%",
       }}
     >
-      <Box sx={{ display: "flex", width: "100%", flexDirection: "column" }}>
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+          overflowY: "auto",
+        }}
+      >
         {mobList.map((mob) => (
-          <MobCard key={mob.id} mob={mob}></MobCard>
+          <MobListCard key={mob.id} mob={mob}></MobListCard>
         ))}
       </Box>
       <Box sx={{ display: "flex", width: "100%" }}>
@@ -59,6 +66,14 @@ export default function MobList() {
           freeSolo={true}
           options={mobList}
           disableClearable
+          renderOption={(props, option) => (
+            <li
+              {...props}
+              key={typeof option === "string" ? option : option.id}
+            >
+              {typeof option === "string" ? option : option.name}
+            </li>
+          )}
           renderInput={(params) => (
             <TextField
               {...params}

@@ -5,6 +5,7 @@ import { Mob } from '../../mob';
 export type MobContextType = {
   mobList: Mob[];
   setMobList: React.Dispatch<React.SetStateAction<Mob[]>>;
+  setCurrentMob: React.Dispatch<React.SetStateAction<Mob | undefined>>;
 };
 
 const MobContext = createContext<MobContextType | null>(null);

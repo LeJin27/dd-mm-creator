@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ThemeWrapper from "../components/ThemeWrapper";
+import ThemeWrapper from "./components/ThemeWrapper";
 import { cookies } from "next/headers";
 import { Fade } from "@mui/material";
 import { GoogleOAuthProvider } from "@react-oauth/google";
