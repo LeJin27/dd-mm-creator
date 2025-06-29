@@ -25,3 +25,16 @@ VALUES (
 RETURNING id, data;
 ;
 `
+
+export const updateMob = 
+`
+UPDATE mob
+SET data = jsonb_build_object(
+  'name', $2::text,
+  'size', $3::numeric,
+  'image', $4::text,
+  'description', $5::text
+)
+WHERE id = $1
+RETURNING id, data;
+`;

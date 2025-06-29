@@ -54,8 +54,16 @@ export class MobService {
 
     const mobs = await this.rowToMob(rows);
     return mobs[0]
+  }
 
+  public async updateMob(mobId: string, newMob : NewMob): Promise<Mob> {
+    const query = {
+      text: queries.updateMob,
+      values: [mobId, newMob.name, newMob.size, newMob.image, newMob.description],
+    };
+    const { rows } = await pool.query(query);
 
-
+    const mobs = await this.rowToMob(rows);
+    return mobs[0]
   }
 }

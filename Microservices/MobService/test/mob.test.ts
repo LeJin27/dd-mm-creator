@@ -170,3 +170,34 @@ test("200: createMob missing required parameters", async () => {
         expect(res.body.errors[0].message).toEqual('Field "NewMob.name" of required type "String!" was not provided.');
     });
 });
+
+
+test("200: updateMob return mob", async () => {
+  helperMockFetchOnce({
+    id: "user123",
+    name: "John Doe",
+    role: "doesnt matter",
+  });
+  await supertest(server)
+    .post("/graphql")
+    .set("Authorization", "Bearer " + "random ass token")
+    .send({
+      query: `
+        mutation  {
+          update (
+          id : "50990564-ac2d-47b6-be71-f1f557878c0c",
+          mob: {
+            name: "randomassname",
+            size: 1
+          }) {
+          id
+          name
+            
+          }
+        }
+      `,
+    })
+    .then((res) => {
+      expect(res.body.data.update).toStrictEqual({ id: '50990564-ac2d-47b6-be71-f1f557878c0c', name: 'randomassname' });
+    });
+});

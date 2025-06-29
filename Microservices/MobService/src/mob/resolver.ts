@@ -57,6 +57,21 @@ export class MobResolver {
     const mobRes = await new MobService().createMob(input);
     return mobRes;
   }
+
+  @Authorized('user')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @Mutation(() => Mob)
+  async update(
+    @Ctx() Request: Request,
+    @Arg("id", () => String) mobId: string,
+    @Arg("mob", () => NewMob) input: NewMob,
+  ): Promise<Mob> {
+    console.log("called once")
+
+    const user = Request.user?.id
+    const mobRes = await new MobService().updateMob(mobId, input);
+    return mobRes;
+  }
 }
 
 
