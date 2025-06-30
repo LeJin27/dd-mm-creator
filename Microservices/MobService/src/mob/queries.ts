@@ -38,3 +38,10 @@ SET data = jsonb_build_object(
 WHERE id = $1
 RETURNING id, data;
 `;
+
+export const mobExists =
+`
+SELECT 1
+FROM mob WHERE data->>'name' = $1 
+LIMIT 1
+`

@@ -66,4 +66,18 @@ export class MobService {
     const mobs = await this.rowToMob(rows);
     return mobs[0]
   }
+
+  public async mobExists(newMob : NewMob) : Promise<boolean> {
+    const query = {
+      text: queries.mobExists,
+      values: [newMob.name],
+    };
+    const { rows } = await pool.query(query);
+    if (rows.length === 0)  {
+      return true;
+
+    } else {
+      return false
+    }
+  }
 }

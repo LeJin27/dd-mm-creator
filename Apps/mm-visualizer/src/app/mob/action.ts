@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers"
-import { Mob, NewMob } from "../../mob";
+import { Mob, NewMob} from "../../mob";
 import { MobService } from "../../mob/service";
 
 export async function getAllMobsAction(): Promise<Mob[] | undefined> {
@@ -28,6 +28,15 @@ export async function createMobAction(mob: NewMob): Promise<Mob | undefined> {
 
   try {
     return new MobService().create(mob, cookie);
+  } catch {
+    return undefined
+  }
+}
+export async function updateMobAction(mobId: string, mob: NewMob): Promise<Mob | undefined> {
+  const cookie = (await cookies()).get('session')?.value;
+
+  try {
+    return new MobService().update(mobId, mob, cookie);
   } catch {
     return undefined
   }

@@ -69,6 +69,10 @@ export class MobResolver {
     console.log("called once")
 
     const user = Request.user?.id
+
+
+
+
     const mobRes = await new MobService().updateMob(mobId, input);
     return mobRes;
   }

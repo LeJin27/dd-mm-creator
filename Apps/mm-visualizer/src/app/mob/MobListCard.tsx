@@ -21,45 +21,58 @@ export default function MobListCard({ mob }: { mob: Mob }) {
     throw new Error("Context error");
   }
   const { setCurrentMob } = context;
+
+  const rightButtons = () => {
+    return (
+      <Box sx={{ display: "flex", gap: 1 }}>
+        <Fab size="small"></Fab>
+        <Fab size="small"></Fab>
+      </Box>
+    );
+  };
+
   return (
     <Box
       sx={{ display: "flex", height: "100%", width: "100%", minHeight: "5vh" }}
     >
       <Paper sx={{ width: "100%", display: "flex", alignItems: "center" }}>
         <Card sx={{ ...growFull }}>
-          <CardActionArea
+          <Box
             sx={{
               ...growFull,
               display: "flex",
+              alignItems:"center",
               border: "1px solid white",
-              justifyContent: "left",
+              justifyContent: "space-between",
               gap: 2,
               p: 1,
             }}
-
-            onClick={() => setCurrentMob(mob)}
           >
-            <Fab
-              component="div"
-              color="secondary"
-              sx={{
-                "&:hover": {
-                  bgcolor: "secondary.main",
-                },
-              }}
-            >
-              <CardMedia
-                component="image"
-                image={GlobeIcon.src}
-                color="white"
-                sx={{ height: 60, width: 60 }}
-              />
-            </Fab>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <Fab
+                component="div"
+                color="secondary"
+                sx={{
+                  "&:hover": {
+                    bgcolor: "secondary.main",
+                  },
+                }}
+                onClick={() => setCurrentMob(mob)}
+              >
+                <CardMedia
+                  component="image"
+                  image={GlobeIcon.src}
+                  color="white"
+                  sx={{ height: 60, width: 60 }}
+                />
+              </Fab>
 
-            <Typography>
-              <strong>{mob.name}</strong>
-            </Typography>
-          </CardActionArea>
+              <Typography>
+                <strong>{mob.name}</strong>
+              </Typography>
+            </Box>
+            {rightButtons()}
+          </Box>
         </Card>
       </Paper>
     </Box>
