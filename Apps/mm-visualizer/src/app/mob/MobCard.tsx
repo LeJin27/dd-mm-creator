@@ -9,18 +9,12 @@ import {
 } from "@mui/material";
 import { Mob, NewMob} from "../../mob";
 import GlobeIcon from "../../../public/place_holder.webp";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { updateMobAction } from "./action";
-import MobContext from "./MobContext";
 
 export default function MobCard({ mob }: { mob: Mob }) {
-const context = useContext(MobContext);
-  if (!context) {
-    throw new Error("Context error");
-  }
-  const { setCurrentMob } = context;
   const [editViewDescription, setEditViewDescription] =
     useState<boolean>(false);
   
