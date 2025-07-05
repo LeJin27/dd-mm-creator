@@ -14,7 +14,9 @@ export default function DashboardCard(props: DashboardComponentProps) {
           height: "100%",
         }}
       >
+        <Box     bgcolor="backgroundLight.main" sx ={{ aspectRatio: '1 / 1', display:'flex', alignItems:"center", justifyContent:"center", borderRadius: 2, p:1}}>
         {props.icon}
+        </Box>
         <Typography variant="h6"><strong>{props.name}</strong></Typography>
         <Typography variant="h4">{props.number}</Typography>
       </Box>

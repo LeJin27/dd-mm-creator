@@ -1,4 +1,11 @@
 import { createTheme } from "@mui/material/styles"
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    backgroundLight?: {
+      main: string;
+    };
+  }
+}
 
 const commonTheme = {
   typography: {
@@ -33,7 +40,11 @@ export const lightTheme = createTheme({
     },
     background: {
       default: "#f8f8f8",
+      paper: "#ffffff",
     },
+    backgroundLight: {
+      main: '#2B2F36',
+    }
   },
 });
 
@@ -46,11 +57,15 @@ export const darkTheme = createTheme({
       contrastText: "#ffffff",
     },
     secondary: {
-      main: '#f58a07',
+      main: '#3CCD93',
     },
     background: {
-      default: "#121212",
+      default: "#1A1A1A",
+      paper: "#202127",
     },
+    backgroundLight: {
+      main: '#414752',
+    }
   },
 });
 
