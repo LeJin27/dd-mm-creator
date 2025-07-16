@@ -12,7 +12,8 @@ export class MobService {
         name: data.name,
         image: data.image,
         size: data.size,
-        description: data.description
+        description: data.description,
+        last_update: data.last_update
       };
       return mobObj;
     }));
@@ -46,9 +47,11 @@ export class MobService {
     return count;
   }
   public async createMob(newMob : NewMob): Promise<Mob> {
+    const currentDate = new Date()
+    const currentDateString = currentDate.toISOString();
     const query = {
       text: queries.createMob,
-      values: [newMob.name, newMob.size, newMob.image, newMob.description],
+      values: [newMob.name, newMob.size, newMob.image, newMob.description, currentDateString],
     };
     const { rows } = await pool.query(query);
 

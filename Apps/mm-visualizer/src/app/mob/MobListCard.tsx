@@ -1,7 +1,6 @@
 import {
   Box,
   Card,
-  CardActionArea,
   CardMedia,
   Fab,
   Paper,
@@ -42,7 +41,6 @@ export default function MobListCard({ mob }: { mob: Mob }) {
               ...growFull,
               display: "flex",
               alignItems:"center",
-              border: "1px solid white",
               justifyContent: "space-between",
               gap: 2,
               p: 1,
@@ -67,9 +65,14 @@ export default function MobListCard({ mob }: { mob: Mob }) {
                 />
               </Fab>
 
+                <Box>
               <Typography>
                 <strong>{mob.name}</strong>
               </Typography>
+              <Typography>
+                Size: {mob.size}
+              </Typography>
+</Box>
             </Box>
             {rightButtons()}
           </Box>

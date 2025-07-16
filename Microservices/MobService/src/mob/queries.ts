@@ -19,7 +19,8 @@ VALUES (
     'name', $1::text,
     'size', $2::numeric,
     'image', $3::text,
-    'description', $4::text
+    'description', $4::text,
+    'last_update', $5::text
   )
 )
 RETURNING id, data;

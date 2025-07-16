@@ -36,7 +36,9 @@ export async function updateMobAction(mobId: string, mob: NewMob): Promise<Mob |
   const cookie = (await cookies()).get('session')?.value;
 
   try {
-    return new MobService().update(mobId, mob, cookie);
+    const createdMob = await new MobService().update(mobId, mob, cookie);
+    console.log(createdMob.description)
+    return createdMob;
   } catch {
     return undefined
   }

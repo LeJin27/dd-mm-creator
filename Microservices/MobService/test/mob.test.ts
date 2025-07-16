@@ -52,6 +52,7 @@ const expectedMob = {
   image: "random_image_url",
   size: 1,
   description: "not null",
+  last_update: "2024-06-15T12:00:00+00:00"
 };
 
 test("Authorized access to template with valid jwt", async () => {
@@ -76,13 +77,14 @@ test("Authorized access to template with valid jwt", async () => {
           image
           size
           description
+          last_update
           }
         }
       `,
     })
     .then((res) => {
-      //console.log(res.body.data.getAll[0])
-      //console.log(expectedMob)
+      console.log(res.body.data.getAll[0])
+      console.log(expectedMob)
       expect(res.body.data.getAll[0]).toEqual(expectedMob);
     });
 });

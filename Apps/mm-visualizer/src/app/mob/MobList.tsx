@@ -51,6 +51,7 @@ export default function MobList() {
           width: "100%",
           flexDirection: "column",
           overflowY: "auto",
+          gap: 1
         }}
       >
         {mobList.map((mob) => (

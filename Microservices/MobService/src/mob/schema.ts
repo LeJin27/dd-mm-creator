@@ -4,12 +4,13 @@ import { Field, ID, InputType, ObjectType, } from 'type-graphql'
 
 @ObjectType()
 export class Mob {
-  constructor(id: string, name: string, size: number, image?: string, description? : string) {
+  constructor(id: string, name: string, size: number, image?: string, description? : string, last_update? : string) {
     this.id = id
     this.name = name
     this.size = size
     this.image = image 
     this.description = description 
+    this.last_update = last_update 
   }
   @Field(() => ID)
   @IsUUID()
@@ -27,6 +28,9 @@ export class Mob {
 
   @Field(() => String, { nullable: true }) 
   description?: string;
+
+  @Field(() => String, { nullable: true }) 
+  last_update?: string;
 
 }
 
@@ -54,5 +58,6 @@ export class NewMob {
 
   @Field(() => String, { nullable: true }) 
   description?: string;
+
 
 }

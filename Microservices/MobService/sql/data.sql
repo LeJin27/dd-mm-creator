@@ -8,7 +8,8 @@ VALUES (
     'name','carrion_eater_B',
     'image', 'random_image_url',
     'size', 1,
-    'description', 'not null'
+    'description', 'not null',
+    'last_update', '2024-06-15T12:00:00+00:00'
   )
 );
 
@@ -18,6 +19,8 @@ VALUES (
   jsonb_build_object(
     'name','carrion_eater_C',
     'size', 2,
-    'image', 'random_image_url'
+    'image', 'random_image_url',
+    'last_update', '2023-06-15T12:00:00+00:00'
+
   )
 );

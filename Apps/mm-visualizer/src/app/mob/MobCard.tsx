@@ -38,7 +38,6 @@ export default function MobCard({ mob }: { mob: Mob }) {
   };
   const handleClickConfirmEdit = async() => {
     setEditViewDescription(false);
-
     await updateMobAction(mob.id, mobDetails)
   };
   const confirmEditButton = () => {
