@@ -27,7 +27,7 @@ export default function MobView() {
   }, []);
 
   return (
-    <MobContext.Provider value={{ mobList, setMobList, setCurrentMob}}>
+    <MobContext.Provider value={{ mobList, setMobList, setCurrentMob, currentMob}}>
       <Grid
         container
         sx={{

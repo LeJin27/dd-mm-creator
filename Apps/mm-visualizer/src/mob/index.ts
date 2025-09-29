@@ -5,6 +5,7 @@ export interface Mob {
   size: number
   image?: string
   description?: string
+  last_update?: string
 }
 
 export interface NewMob {

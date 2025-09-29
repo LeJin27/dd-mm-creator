@@ -30,6 +30,10 @@ export default function MobListCard({ mob }: { mob: Mob }) {
     );
   };
 
+  const handleClickMob = () => {
+    setCurrentMob(mob)
+  }
+
   return (
     <Box
       sx={{ display: "flex", height: "100%", width: "100%", minHeight: "5vh" }}
@@ -55,7 +59,7 @@ export default function MobListCard({ mob }: { mob: Mob }) {
                     bgcolor: "secondary.main",
                   },
                 }}
-                onClick={() => setCurrentMob(mob)}
+                onClick={() => handleClickMob()}
               >
                 <CardMedia
                   component="image"

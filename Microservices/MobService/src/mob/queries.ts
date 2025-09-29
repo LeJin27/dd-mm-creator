@@ -34,7 +34,8 @@ SET data = jsonb_build_object(
   'name', $2::text,
   'size', $3::numeric,
   'image', $4::text,
-  'description', $5::text
+  'description', $5::text,
+  'last_update', NOW()
 )
 WHERE id = $1
 RETURNING id, data;

@@ -1,0 +1,57 @@
+hall: .chance 1 .types carrion_eater_A carrion_eater_A dd2_swine_skulker_A 
+hall: .chance 1 .types carrion_eater_A dd2_swine_skulker_A  swine_wretch_A 
+hall: .chance 1 .types swine_reaver_A swine_slasher_A dd2_swine_skulker_A 
+hall: .chance 1 .types dd2_swine_skulker_A dd2_swine_skulker_A
+hall: .chance 1 .types dd2_swine_skulker_A dd2_swine_skulker_A  swine_wretch_A swine_wretch_A
+room: .chance 1 .types carrion_eater_A carrion_eater_A dd2_swine_skulker_A  swine_wretch_A
+room: .chance 1 .types swine_reaver_A dd2_swine_skulker_A  dd2_swine_skulker_A  swine_wretch_A
+room: .chance 1 .types dd2_swine_skulker_A dd2_swine_skulker_A dd2_swine_skulker_A dd2_swine_skulker_A 
+room: .chance 1 .types swine_reaver_A dd2_swine_skulker_A  swine_slasher_A dd2_swine_skulker_A 
+
+hall: .chance 1 .types dd2_swine_skulker_A  swine_reaver_A swine_drummer_A dd2_swine_skulker_A 
+hall: .chance 1 .types swine_reaver_A dd2_swine_skulker_A dd2_swine_skulker_A 
+hall: .chance 1 .types dd2_swine_skulker_A  swine_reaver_A swine_slasher_A dd2_swine_skulker_A 
+hall: .chance 1 .types dd2_swine_skulker_A swine_slasher_A swine_slasher_A dd2_swine_skulker_A 
+hall: .chance 1 .types dd2_swine_skulker_A carrion_eater_A swine_slasher_A carrion_eater_A
+
+room: .chance 1 .types dd2_swine_skulker_A  swine_reaver_A dd2_swine_skulker_A  swine_drummer_A
+room: .chance 1 .types swine_reaver_A dd2_swine_skulker_A dd2_swine_skulker_A dd2_swine_skulker_A 
+room: .chance 1 .types swine_wretch_A swine_wretch_A dd2_swine_skulker_A  swine_drummer_A
+room: .chance 1 .types swine_slasher_A swine_slasher_A swine_slasher_A dd2_swine_skulker_A 
+room: .chance 1 .types swine_slasher_A dd2_swine_skulker_A swine_slasher_A dd2_swine_skulker_A 
+room: .chance 1 .types dd2_swine_skulker_A swine_slasher_A dd2_swine_skulker_A swine_slasher_A
+
+hall: .chance 1 .types dd2_swine_skulker_A dd2_swine_brute_A dd2_swine_skulker_A
+hall: .chance 1 .types swine_reaver_A dd2_swine_brute_A
+hall: .chance 1 .types dd2_swine_brute_A swine_wretch_A
+hall: .chance 1 .types carrion_eater_A dd2_swine_brute_A carrion_eater_A
+
+room: .chance 1 .types swine_slasher_A dd2_swine_skulker_A dd2_swine_brute_A
+room: .chance 1 .types swine_reaver_A dd2_swine_brute_A swine_drummer_A
+room: .chance 1 .types dd2_swine_skulker_A dd2_swine_brute_A swine_drummer_A
+room: .chance 1 .types dd2_swine_brute_A dd2_swine_skulker_A dd2_swine_skulker_A
+room: .chance 1 .types dd2_swine_brute_A swine_slasher_A swine_drummer_A
+room: .chance 1 .types dd2_swine_brute_A swine_wretch_A swine_drummer_A
+
+hall: .chance 1 .types cultist_brawler_A dd2_carrion_devourer_A cultist_witch_A swine_drummer_A
+hall: .chance 1 .types dd2_carrion_devourer_A carrion_eater_A carrion_eater_A
+hall: .chance 1 .types dd2_carrion_devourer_A dd2_swine_skulker_A dd2_swine_brute_A
+hall: .chance 1 .types swine_reaver_A dd2_carrion_devourer_A swine_slasher_A swine_drummer_A
+hall: .chance 1 .types carrion_eater_A dd2_carrion_devourer_A carrion_eater_A
+hall: .chance 1 .types dd2_carrion_devourer_A swine_reaver_A swine_slasher_A
+hall: .chance 1 .types dd2_carrion_devourer_A ghoul_A
+hall: .chance 1 .types dd2_carrion_devourer_A dd2_carrion_devourer_A
+
+room: .chance 1 .types dd2_carrion_devourer_A dd2_carrion_devourer_A carrion_eater_A swine_drummer_A 
+room: .chance 1 .types dd2_carrion_devourer_A dd2_carrion_devourer_A dd2_swine_brute_A
+room: .chance 1 .types dd2_carrion_devourer_A dd2_swine_skulker_A carrion_eater_A swine_drummer_A
+room: .chance 1 .types dd2_swine_brute_A dd2_carrion_devourer_A swine_drummer_A
+room: .chance 1 .types dd2_carrion_devourer_A dd2_swine_brute_A swine_drummer_A
+room: .chance 1 .types carrion_eater_A dd2_carrion_devourer_A dd2_carrion_devourer_A swine_drummer_A
+room: .chance 1 .types dd2_carrion_devourer_A carrion_eater_A dd2_carrion_devourer_A swine_drummer_A
+room: .chance 1 .types dd2_carrion_devourer_A carrion_eater_A dd2_swine_skulker_A swine_drummer_A
+room: .chance 1 .types swine_slasher_A dd2_carrion_devourer_A carrion_eater_A swine_drummer_A
+room: .chance 1 .types dd2_carrion_devourer_A carrion_eater_A swine_drummer_A swine_wretch_A
+
+
+

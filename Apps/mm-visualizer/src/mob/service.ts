@@ -18,6 +18,7 @@ export class MobService {
                 image
                 size
                 description
+                last_update
               }
             }
         `,
@@ -83,6 +84,7 @@ export class MobService {
                 image
                 size
                 description
+                last_update
               }
             }
         `,
@@ -122,6 +124,7 @@ export class MobService {
                 image
                 size
                 description
+                last_update
               }
             }
         `,

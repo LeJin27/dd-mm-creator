@@ -200,6 +200,7 @@ test("200: updateMob return mob", async () => {
       `,
     })
     .then((res) => {
+      console.log(res.body.data.update)
       expect(res.body.data.update).toStrictEqual({ id: '50990564-ac2d-47b6-be71-f1f557878c0c', name: 'randomassname' });
     });
 });
